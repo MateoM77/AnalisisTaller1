@@ -300,3 +300,44 @@ ax.set_title('Proyeccion PCA en 3 Dimensiones')
 plt.tight_layout()
 plt.show()
 
+# Analisis de que variables contribuyen mas a cada componente
+# Tomamos las primeras 3 componentes para analizar
+
+contribuciones = pca_final.components_[:3].T
+df_contribuciones = pd.DataFrame(
+    contribuciones,
+    columns=['PC1', 'PC2', 'PC3'],
+    index=datos.columns
+)
+
+print("Variables con mayor contribucion al Componente 1:")
+print(df_contribuciones['PC1'].abs().sort_values(ascending=False).head(5))
+
+# Mapa de Calor de contribuciones
+
+plt.figure(figsize=(11, 7))
+sns.heatmap(df_contribuciones.T, annot=True, cmap='RdBu_r', 
+            center=0, fmt='.2f', linewidths=0.5)
+plt.title('Contribucion de Variables a Componentes Principales')
+plt.xlabel('Variables Originales')
+plt.ylabel('Componentes')
+plt.tight_layout()
+plt.show()
+
+# ---------------------------
+# Se Guardan Resultados
+# ---------------------------
+print("\nGuardando archivos procesados...")
+
+# Se Guardan los datos escalados
+datos_escalados.to_csv("spotify_datos_escalados.csv", index=False)
+
+# Se Guardan los datos con PCA aplicado
+
+df_pca = pd.DataFrame(datos_reducidos, 
+                      columns=[f'PC{i+1}' for i in range(componentes_necesarios)])
+df_pca.to_csv("spotify_datos_pca.csv", index=False)
+
+print("Archivos guardados:")
+print("  - spotify_datos_escalados.csv")
+print("  - spotify_datos_pca.csv")
