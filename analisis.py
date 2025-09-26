@@ -5,6 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.preprocessing import LabelEncoder, StandardScaler
+from sklearn.decomposition import PCA
 
 # ---------------------------
 # 1. Cargar dataset
@@ -171,6 +172,7 @@ print(datos_escalados.describe())
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5))
 
 # Antes del escalado
+
 datos.iloc[:, 2].hist(bins=25, ax=ax1, color='Purple', edgecolor='black')
 ax1.set_title(f'Antes del escalado\n{datos.columns[2]}')
 ax1.set_ylabel('Frecuencia')
@@ -182,3 +184,66 @@ ax2.set_ylabel('Frecuencia')
 
 plt.tight_layout()
 plt.show()
+
+# ---------------------------
+# Paso 4: Se Aplica PCA
+# ---------------------------
+print("\n--- Analisis de Componentes Principales (PCA) ---\n")
+
+# Se aplica PCA completo para ver cuanta varianza explica cada componente
+
+pca_completo = PCA()
+pca_completo.fit(datos_escalados)
+
+varianza_explicada = pca_completo.explained_variance_ratio_
+varianza_acumulada = np.cumsum(varianza_explicada)
+
+# Resultados
+
+print("Varianza explicada por cada componente:")
+for i in range(min(8, len(varianza_explicada))):
+    print(f"  Componente {i+1}: {varianza_explicada[i]*100:.2f}%  |  Acumulado: {varianza_acumulada[i]*100:.2f}%")
+
+# Se Calculan cuantos componentes son necesarios para explicar el 95% de la varianza
+
+componentes_necesarios = np.argmax(varianza_acumulada >= 0.95) + 1
+print(f"\nComponentes necesarios para 95% de varianza: {componentes_necesarios}")
+print(f"Reduccion: de {len(datos.columns)} variables a {componentes_necesarios} componentes\n")
+
+# Grafico de varianza 
+
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 5))
+
+# Grafico 1: barras por componente
+
+ax1.bar(range(1, len(varianza_explicada)+1), varianza_explicada*100, 
+        color='teal', alpha=0.7)
+ax1.set_xlabel('Componente Principal')
+ax1.set_ylabel('Varianza Explicada (%)')
+ax1.set_title('Varianza por Componente')
+ax1.grid(axis='y', alpha=0.4)
+
+# Grafico 2: linea acumulada
+
+ax2.plot(range(1, len(varianza_acumulada)+1), varianza_acumulada*100, 
+         marker='o', linewidth=2, color='darkred')
+ax2.axhline(y=95, color='pink', linestyle='--', linewidth=1.5, label='Umbral 95%')
+ax2.axvline(x=componentes_necesarios, color='blue', linestyle='--', 
+            linewidth=1.5, label=f'{componentes_necesarios} componentes')
+ax2.set_xlabel('Numero de Componentes')
+ax2.set_ylabel('Varianza Acumulada (%)')
+ax2.set_title('Varianza Explicada Acumulada')
+ax2.legend()
+ax2.grid(True, alpha=0.4)
+
+plt.tight_layout()
+plt.show()
+
+# Se aplica PCA con el numero optimo de componentes
+
+pca_final = PCA(n_components=componentes_necesarios)
+datos_reducidos = pca_final.fit_transform(datos_escalados)
+
+print(f"Forma original: {datos_escalados.shape}")
+print(f"Forma reducida: {datos_reducidos.shape}")
+print(f"Varianza total retenida: {varianza_acumulada[componentes_necesarios-1]*100:.2f}%\n")
