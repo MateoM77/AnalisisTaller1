@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.decomposition import PCA
+from mpl_toolkits.mplot3d import Axes3D
 
 # ---------------------------
 # 1. Cargar dataset
