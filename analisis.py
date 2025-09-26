@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+from sklearn.preprocessing import LabelEncoder
 
 # ---------------------------
 # 1. Cargar dataset
@@ -100,3 +101,4 @@ print("- La distribución de edad no es normal, presenta sesgo hacia edades jóv
 print("- Los usuarios con mayor skip_rate parecen tener mayor probabilidad de churn.")
 print("- La suscripción gratuita y el número de anuncios escuchados se asocian con mayor churn.")
 print("- Los usuarios que escuchan offline muestran menor tasa de churn (relación con planes de pago).")
+
