@@ -139,3 +139,46 @@ for columna in categoricas:
 print("Datos despues de codificar:")
 print(datos.head())
 print(f"\nVerificando tipos de datos:\n{datos.dtypes}\n")
+
+# Se verifica si hay valores nulos antes de continuar  
+
+print("Valores nulos por columna:")
+print(datos.isnull().sum())
+if datos.isnull().sum().sum() > 0:
+    print("\nRellenando valores nulos con la mediana...")
+    datos = datos.fillna(datos.median())
+else:
+    print("No hay valores nulos, podemos continuar\n")
+    
+    # ---------------------------
+# Paso 3: Escalar los datos
+# ---------------------------
+# Uso StandardScaler para PCA
+print("Aplicando StandardScaler a todas las variables...")
+
+escalador = StandardScaler()
+datos_escalados = escalador.fit_transform(datos)
+
+# Convierto de nuevo a DataFrame para facilitar el trabajo
+
+datos_escalados = pd.DataFrame(datos_escalados, columns=datos.columns)
+
+print("\nEstadisticas despues del escalado:")
+print(datos_escalados.describe())
+
+# Visualizo el efecto del escalado en una variable
+
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5))
+
+# Antes del escalado
+datos.iloc[:, 2].hist(bins=25, ax=ax1, color='Purple', edgecolor='black')
+ax1.set_title(f'Antes del escalado\n{datos.columns[2]}')
+ax1.set_ylabel('Frecuencia')
+
+# Despues del escalado
+datos_escalados.iloc[:, 2].hist(bins=25, ax=ax2, color='green', edgecolor='black')
+ax2.set_title(f'Despues del escalado\n{datos.columns[2]}')
+ax2.set_ylabel('Frecuencia')
+
+plt.tight_layout()
+plt.show()
