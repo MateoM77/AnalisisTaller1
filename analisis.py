@@ -247,3 +247,55 @@ datos_reducidos = pca_final.fit_transform(datos_escalados)
 print(f"Forma original: {datos_escalados.shape}")
 print(f"Forma reducida: {datos_reducidos.shape}")
 print(f"Varianza total retenida: {varianza_acumulada[componentes_necesarios-1]*100:.2f}%\n")
+
+# ---------------------------
+# Paso 5: Visualizaciones EN 2D Y 3D
+# ---------------------------
+
+print("Visualizaciones...\n")
+
+# Visualizacion en 2D primeras 2 componentes
+
+pca_2d = PCA(n_components=2)
+componentes_2d = pca_2d.fit_transform(datos_escalados)
+
+plt.figure(figsize=(10, 7))
+if 'is_churned' in df.columns:
+    colores = df['is_churned']
+    scatter = plt.scatter(componentes_2d[:, 0], componentes_2d[:, 1], 
+                         c=colores, cmap='plasma', alpha=0.6, s=40)
+    plt.colorbar(scatter, label='Churn (0=No, 1=Si)')
+else:
+    plt.scatter(componentes_2d[:, 0], componentes_2d[:, 1], alpha=0.6, s=40)
+
+plt.xlabel(f'Componente 1 ({pca_2d.explained_variance_ratio_[0]*100:.1f}% varianza)')
+plt.ylabel(f'Componente 2 ({pca_2d.explained_variance_ratio_[1]*100:.1f}% varianza)')
+plt.title('Proyeccion PCA en 2 Dimensiones')
+plt.grid(True, alpha=0.3)
+plt.tight_layout()
+plt.show()
+
+# Visualizacion en 3D primeras 3 componentes
+
+pca_3d = PCA(n_components=3)
+componentes_3d = pca_3d.fit_transform(datos_escalados)
+
+figura = plt.figure(figsize=(10, 7))
+ax = figura.add_subplot(111, projection='3d')
+
+if 'is_churned' in df.columns:
+    colores = df['is_churned']
+    scatter = ax.scatter(componentes_3d[:, 0], componentes_3d[:, 1], componentes_3d[:, 2],
+                        c=colores, cmap='viridis', alpha=0.5, s=35)
+    figura.colorbar(scatter, ax=ax, label='Churn', pad=0.1)
+else:
+    ax.scatter(componentes_3d[:, 0], componentes_3d[:, 1], componentes_3d[:, 2], 
+              alpha=0.5, s=35)
+
+ax.set_xlabel('PC1')
+ax.set_ylabel('PC2')
+ax.set_zlabel('PC3')
+ax.set_title('Proyeccion PCA en 3 Dimensiones')
+plt.tight_layout()
+plt.show()
+
