@@ -102,3 +102,40 @@ print("- Los usuarios con mayor skip_rate parecen tener mayor probabilidad de ch
 print("- La suscripción gratuita y el número de anuncios escuchados se asocian con mayor churn.")
 print("- Los usuarios que escuchan offline muestran menor tasa de churn (relación con planes de pago).")
 
+#----------------------------
+# FASE 3 PREPROCESAMIENTO Y REDUCCIÓN 
+#----------------------------
+
+# Hago una copia de la data para no modificar el original
+datos = df.copy()
+
+# ---------------------------
+# Paso 1: Codificar variables categoricas
+# ---------------------------
+# Primero identifico cuales son categoricas
+categoricas = datos.select_dtypes(include=["object"]).columns.tolist()
+print(f"\nVariables categoricas encontradas: {categoricas}")
+print(f"Total: {len(categoricas)} variables\n")
+
+# ---------------------------
+# Paso 2: Las convierto a numeros con LabelEncoder
+# ---------------------------
+
+encoders_guardados = {}
+
+for columna in categoricas:
+    print(f"Codificando: {columna}")
+    valores_unicos = datos[columna].unique()
+    print(f"  Valores: {valores_unicos}")
+    
+    encoder = LabelEncoder()
+    datos[columna] = encoder.fit_transform(datos[columna])
+    encoders_guardados[columna] = encoder
+
+    # Muestro como quedo la codificacion
+
+    print(f"  Codificacion: {dict(zip(encoder.classes_, encoder.transform(encoder.classes_)))}\n")
+
+print("Datos despues de codificar:")
+print(datos.head())
+print(f"\nVerificando tipos de datos:\n{datos.dtypes}\n")
