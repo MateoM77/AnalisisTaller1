@@ -9,6 +9,11 @@ from sklearn.decomposition import PCA
 from mpl_toolkits.mplot3d import Axes3D
 
 
+# ---------------------------
+# 1. Cargar dataset
+# ---------------------------
+df = pd.read_csv("spotify_churn_dataset.csv")
+
 #----------------------------
 # FASE 3 PREPROCESAMIENTO Y REDUCCIÓN 
 #----------------------------
