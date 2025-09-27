@@ -98,14 +98,35 @@ plt.title("Skip Rate según Churn")
 plt.show()
 
 
-# 6.4 Boxplot ads_listened_per_week vs churn 
+# 6.4 Boxplot Age vs churn 
+plt.figure(figsize=(6,4))
+sns.boxplot(x="is_churned", y="age", data=df)
+plt.title("Edad según Churn")
+plt.show()
+
+
+# 6.5 Boxplot Listening Time vs churn 
+plt.figure(figsize=(6,4))
+sns.boxplot(x="is_churned", y="listening_time", data=df)
+plt.title("Tiempo de Escucha según Churn")
+plt.show()
+
+
+# 6.6 Boxplot Songs per Day vs churn
+plt.figure(figsize=(6,4))
+sns.boxplot(x="is_churned", y="songs_played_per_day", data=df)
+plt.title("Canciones por Día según Churn")
+plt.show()
+
+
+# 6.7 Boxplot ads_listened_per_week vs churn 
 plt.figure(figsize=(6,4))
 sns.boxplot(x="is_churned", y="ads_listened_per_week", data=df)
 plt.title("Anuncios escuchados según Churn")
 plt.show()
 
 
-# 6.5 Pairplot de algunas variables relevantes 
+# 6.8 Pairplot de algunas variables relevantes 
 sns.pairplot(df, vars=["age", "skip_rate", "listening_time", "songs_played_per_day"], hue="is_churned")
 plt.suptitle("Pairplot de Variables Relevantes", y=1.02)
 plt.show()
