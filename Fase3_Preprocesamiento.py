@@ -247,6 +247,7 @@ print("Archivos guardados:")
 print("  - spotify_datos_escalados.csv")
 print("  - spotify_datos_pca.csv")
 
+
 # ---------------------------
 # Resumen final
 # ---------------------------
