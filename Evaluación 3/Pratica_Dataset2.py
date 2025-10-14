@@ -119,7 +119,7 @@ print(" Normalización aplicada (Min-Max Scaler)")
 print(f"\nTotal de variables después del preprocesamiento: {len(df_procesado.columns)}")
 
 
-# 4. Se realiza separación en conjuntos de entrenamiento y prueba
+# 2.4 Se realiza separación en conjuntos de entrenamiento y prueba
 
 print("\n" + "="*70)
 print("DIVISIÓN DEL DATASET")
