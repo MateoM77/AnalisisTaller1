@@ -1,3 +1,123 @@
+# Proyecto de Evaluación de Modelos – Overfitting y Underfitting
+
+## 📌 Descripción
+
+El propósito de este proyecto es comprender y aplicar técnicas de **evaluación y validación de modelos de Machine Learning**, poniendo especial énfasis en la detección y manejo de **overfitting** y **underfitting**. Se utilizan dos problemas reales de clasificación: predicción de fuga de clientes (**churn**) y predicción de **default** en tarjetas de crédito, cubriendo tanto escenarios balanceados como desbalanceados.
+
+---
+
+## 🚀 Instrucciones de Ejecución
+
+### 1. Requisitos previos
+
+Asegúrate de tener instalado:
+
+* Python 3.8 o superior
+
+### 2. Instalación de librerías necesarias
+
+Ejecuta en tu entorno de Python:
+
+```bash
+pip install pandas numpy matplotlib seaborn scikit-learn xlrd
+```
+
+### 3. Ejecución de los scripts
+
+1. Clona este repositorio:
+
+   ```bash
+   git clone https://github.com/MateoM77/AnalisisTaller1.git
+   ```
+2. Ejecuta los scripts:
+
+   * `Practica_Dataset1.py` → Análisis y evaluación con el dataset de Telco Customer Churn.
+   * `Pratica_Dataset2.py` → Análisis y evaluación con el dataset de Credit Card Default.
+
+### 4. Archivos generados
+
+Al finalizar la ejecución de cada script, se generan automáticamente visualizaciones (matriz de confusión, curvas ROC, curvas de aprendizaje) y reportes de métricas en consola.
+
+---
+
+## 🗂️ Datasets Utilizados
+
+1. **Telco Customer Churn – Kaggle** (`Dataset 1 Telco Customer Churn - Kaggle.csv`)
+   * Datos de clientes de una empresa de telecomunicaciones, objetivo: predecir fuga (churn).
+   * Problema de clasificación **balanceado**.
+   * Incluye variables numéricas y categóricas, ideal para comparar modelos básicos y complejos.
+
+2. **Credit Card Default – UCI** (`Dataset 2 Credit Card Default - UCI.xls`)
+   * Datos de clientes bancarios, objetivo: predecir si incurrirán en impago (default).
+   * Problema de clasificación **desbalanceado**.
+   * Requiere técnicas de manejo de desbalance y análisis cuidadoso de métricas.
+
+---
+
+## ✨ Pipeline de Análisis
+
+### 1. Preprocesamiento y Limpieza
+
+* **Revisión y manejo de valores nulos** (imputación o eliminación).
+* **Eliminación de duplicados**.
+* **Conversión de variables** (por ejemplo, strings a numéricos).
+* **Codificación de variables categóricas** (binarias y one-hot encoding).
+* **Escalado de variables numéricas** con MinMaxScaler.
+
+### 2. División de los Datos
+
+* Separación en conjuntos de **entrenamiento** y **prueba** (80/20), manteniendo la proporción de clases.
+
+### 3. Entrenamiento y Validación
+
+* Entrenamiento de **Regresión Logística** y **Random Forest** (además de SVM para el dataset de default).
+* **Validación cruzada (k-fold y stratified k-fold)** para búsqueda de hiperparámetros y estimación robusta del rendimiento.
+
+### 4. Evaluación de Modelos
+
+* Métricas principales: **Accuracy, Recall, F1-score, ROC-AUC**.
+* **Matriz de confusión** y **curvas ROC** para interpretación visual.
+* **Curvas de aprendizaje** para detectar overfitting y underfitting.
+* Análisis de **importancia de variables** (feature importance y coeficientes).
+
+### 5. Comparación de Resultados
+
+* Comparación entre modelos y datasets.
+* En el caso del default, especial énfasis en métricas robustas al desbalance de clases.
+
+---
+
+## 📂 Archivos del Repositorio
+
+* `Practica_Dataset1.py` → Análisis y evaluación con Telco Customer Churn.
+* `Pratica_Dataset2.py` → Análisis y evaluación con Credit Card Default.
+* `Dataset 1 Telco Customer Churn - Kaggle.csv` → Datos de churn.
+* `Dataset 2 Credit Card Default - UCI.xls` → Datos de default.
+* `README.md` → Documento descriptivo del proyecto.
+
+---
+
+## 🎥 Explicación y Justificación
+
+El proyecto incluye:
+
+* Presentación teórica de **overfitting, underfitting y validación cruzada**.
+* Justificación de métricas seleccionadas según el tipo de problema.
+* Ejemplos visuales para detectar y explicar el sobreajuste/subajuste.
+* Comparación de resultados entre problemas balanceados y desbalanceados.
+
+---
+
+## ✅ Conclusiones
+
+* La correcta evaluación de modelos es fundamental para evitar falsas expectativas y errores en producción.
+* La **validación cruzada** proporciona estimaciones fiables y ayuda a seleccionar hiperparámetros óptimos.
+* Cada métrica resalta un aspecto distinto: es clave elegir la más relevante para el problema.
+* Comparar entre diferentes datasets destaca la importancia de abordar el desbalance y la complejidad de datos en Machine Learning.
+
+---
+
+
 # Proyecto de Análisis de Datos – Spotify Churn
 
 ## 📌 Descripción
